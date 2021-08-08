@@ -1,25 +1,17 @@
-module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-    node: true,
-  },
-  extends: [
-    'plugin:vue/essential',
-    'airbnb-base',
-    'plugin:prettier/recommended', // 添加 prettier 插件
-    'plugin:vue/essential',
-    'airbnb-base',
-  ],
-  parserOptions: {
-    ecmaVersion: 12,
-    parser: '@typescript-eslint/parser',
-    sourceType: 'module',
-  },
-  plugins: [
-    'vue',
-    '@typescript-eslint',
-  ],
-  rules: {
-  },
+export const root = true;
+export const env = {
+  node: true
 };
+export const extend = ['plugin:vue/essential', 'eslint:recommended'];
+export const rules = {
+  'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  //强制使用单引号
+  quotes: ['error', 'single'],
+  //强制不使用分号结尾
+  semi: ['error', 'never']
+};
+export const parserOptions = {
+  parser: 'babel-eslint'
+};
+

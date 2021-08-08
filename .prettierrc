@@ -1,15 +1,8 @@
-/*
-  代码格式化工具配置
-  # 格式化所有文件（. 表示所有文件）
-npx prettier --write .
-
-*/
 {
-  "useTabs": false,
-  "tabWidth": 2,
-  "printWidth": 100,
+   //开启 eslint 支持
+  "eslintIntegration": true,
+  //使用单引号
   "singleQuote": true,
-  "trailingComma": "none",
-  "bracketSpacing": true,
+  //结尾不加分号
   "semi": false
 }

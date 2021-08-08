@@ -1,0 +1,19 @@
+@import "@/style/theme.scss";
+.logo {
+  width: 3rem;
+  height: 100%;
+  text-align: center;
+  line-height: 3rem;
+}
+.head-title {
+  width: 50rem;
+  height: 100%;
+  color: $color;
+  line-height: 3rem;
+  text-align: left;
+  font-size: 1.5rem;
+}
+.functional-group {
+  width: 44rem;
+  height: 100%;
+}

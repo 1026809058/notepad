@@ -1,0 +1,12 @@
+// @media_0em
+.flex-left {
+  display: none;
+}
+.header {
+  height: 3rem;
+  width: 100%;
+}
+.main {
+  width: 100%;
+  height: calc(100% - 3rem);
+}

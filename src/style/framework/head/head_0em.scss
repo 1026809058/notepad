@@ -1,0 +1,27 @@
+@import "@/style/theme.scss";
+header {
+  background-color: $background-color;
+}
+.logo {
+  width: 0;
+  height: 100%;
+  text-align: center;
+  line-height: 3rem;
+  margin-right: 0;
+  position: relative;
+  left: -3rem;
+  transition: all 0.5s;
+}
+.head-title {
+  width: 50rem;
+  height: 100%;
+  color: $color;
+  line-height: 3rem;
+  text-align: center;
+  font-size: 1.5rem;
+  transition: all 0.5s;
+}
+.functional-group {
+  width: 47rem;
+  height: 100%;
+}
