@@ -17,17 +17,17 @@
     <div class="head-title">notebook</div>
     <div class="functional-group"></div>
   </header>
-  <side-window :show="show"></side-window>
+  <!--侧边菜单弹窗-->
+  <side-window v-model:show="show" :isRight="false"></side-window>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
 export default defineComponent({
   name: "Head",
   setup() {
-    let show = ref(false);
+    let show = ref<Boolean>(false);
     function openSide() {
       show.value = true;
-      console.log(show.value);
     }
     return {
       show,

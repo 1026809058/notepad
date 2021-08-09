@@ -1,10 +1,11 @@
-# Vue 3 + Typescript + Vite
+# 技术栈
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
+Vue 3 + Typescript + Vite2 + router4 + axiox
 
-## Recommended IDE Setup
+## Run
+npm install
+npm run dev
 
-[VSCode](https://code.visualstudio.com/) + [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur). Make sure to enable `vetur.experimental.templateInterpolationService` in settings!
 
 ### If Using `<script setup>`
 
