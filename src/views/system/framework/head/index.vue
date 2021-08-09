@@ -18,7 +18,11 @@
     <div class="functional-group"></div>
   </header>
   <!--侧边菜单弹窗-->
-  <side-window v-model:show="show" :isRight="false"></side-window>
+  <side-window v-model:show="show" :isRight="false">
+    <template v-slot:header>
+      <NButton>导航</NButton>
+    </template>
+  </side-window>
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
