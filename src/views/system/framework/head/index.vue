@@ -20,23 +20,35 @@
   <!--侧边菜单弹窗-->
   <side-window v-model:show="show" :isRight="false">
     <template v-slot:header>
-      <switch-btn labelLeft="路由列表" labelRight="标签页"></switch-btn>
+      <switch-btn
+        labelLeft="路由列表"
+        labelRight="标签页"
+        v-model:label="labelVal"
+      ></switch-btn>
     </template>
   </side-window>
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
-import SwitchBtn from "../../../../components/globalComponents/SwitchBtn.vue";
+import SwitchBtn from "@/components/globalComponents/SwitchBtn.vue";
 export default defineComponent({
   components: { SwitchBtn },
   name: "Head",
   setup() {
     let show = ref<Boolean>(false);
+    let labelVal = ref<String>("路由列表");
     function openSide() {
       show.value = true;
     }
+    watch(
+      () => labelVal.value,
+      (value: String) => {
+        console.log(value);
+      }
+    );
     return {
       show,
+      labelVal,
       openSide,
     };
   },
