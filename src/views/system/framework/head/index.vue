@@ -20,13 +20,15 @@
   <!--侧边菜单弹窗-->
   <side-window v-model:show="show" :isRight="false">
     <template v-slot:header>
-      <NButton>导航</NButton>
+      <switch-btn labelLeft="路由列表" labelRight="标签页"></switch-btn>
     </template>
   </side-window>
 </template>
 <script lang="ts">
 import { defineComponent, ref, watch } from "vue";
+import SwitchBtn from "../../../../components/globalComponents/SwitchBtn.vue";
 export default defineComponent({
+  components: { SwitchBtn },
   name: "Head",
   setup() {
     let show = ref<Boolean>(false);
