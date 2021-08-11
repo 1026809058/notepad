@@ -21,11 +21,16 @@
   <side-window v-model:show="show" :isRight="false">
     <template v-slot:header>
       <switch-btn
+        class="head-switch-btn"
         labelLeft="路由列表"
         labelRight="标签页"
         v-model:label="labelVal"
       ></switch-btn>
     </template>
+    <div>
+      <div v-if="labelVal.value === '路由列表'">{{ labelVal.value }}</div>
+      <div v-if="labelVal.value === '标签页'">{{ labelVal.value }}</div>
+    </div>
   </side-window>
 </template>
 <script lang="ts">
@@ -43,7 +48,7 @@ export default defineComponent({
     watch(
       () => labelVal.value,
       (value: String) => {
-        console.log(value);
+        console.log(value === "路由列表");
       }
     );
     return {
@@ -66,6 +71,10 @@ header {
   height: 100%;
   text-align: center;
   line-height: 3rem;
+}
+.head-switch-btn {
+  width: 18rem;
+  margin: 0.5rem 1rem;
 }
 @media screen and (min-width: 0) {
   @import "@/style/framework/head/head_0em.scss";

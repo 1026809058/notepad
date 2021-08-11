@@ -16,6 +16,5 @@ export default defineComponent({
 .tags {
   width: 17rem;
   height: 5rem;
-  margin: 20px;
 }
 </style>
