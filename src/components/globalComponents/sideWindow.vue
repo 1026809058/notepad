@@ -8,7 +8,10 @@
       @touchstart="touchstart"
       @touchmove="touchmove"
     >
-      <div class="win-content" :style="{ zIndex: `${zIndex + 1}` }">
+      <div
+        class="win-content"
+        :style="{ zIndex: `${zIndex + 1}`, backgroundColor }"
+      >
         <div class="w-header">
           <slot name="header"></slot>
         </div>
@@ -24,6 +27,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, watch, ref } from "vue";
+import setting from "../../setting/setting";
 export default defineComponent({
   name: "SideWindow",
   props: {
@@ -54,6 +58,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    const backgroundColor = setting.sideWindow.backgroundColor;
     let showStatus = ref();
     //点击阴影关闭
     function shadowClose() {
@@ -90,6 +95,7 @@ export default defineComponent({
     );
     return {
       showStatus,
+      backgroundColor,
       closeWindow,
       touchstart,
       touchmove,
