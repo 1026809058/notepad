@@ -12,11 +12,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Home',
     component: Home
   },
-  {
-    path: '/vuex',
-    name: 'Vuex',
-    component: Vuex
-  },
+  // {
+  //   path: '/vuex',
+  //   name: 'MyStudy',
+  //   component: ()=>import(@/views/notepad/myStudy)
+  // },
   {
     path: '/axios',
     name: 'Axios',

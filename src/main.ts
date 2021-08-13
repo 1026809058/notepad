@@ -11,5 +11,7 @@ import globa from "./components/globalComponents";
 
 const app = createApp(App);
 app.use(ElementPlus);
+app.use(router);
+app.use(store);
 globa(app);
 app.mount("#app");
