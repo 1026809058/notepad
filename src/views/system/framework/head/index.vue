@@ -88,7 +88,7 @@ header {
   width: 100%;
   height: 100%;
 }
-::v-deep .w-header {
+.w-header {
   margin: auto;
   .switch-btn {
     width: 18rem;

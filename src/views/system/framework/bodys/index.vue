@@ -1,7 +1,5 @@
 <template>
-  <div class="tags">
-    <LabelPage></LabelPage>
-  </div>
+  <router-view></router-view>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -12,9 +10,4 @@ export default defineComponent({
   setup() {},
 });
 </script>
-<style lang="scss" scoped>
-.tags {
-  width: 17rem;
-  height: 5rem;
-}
-</style>
+<style lang="scss" scoped></style>
