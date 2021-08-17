@@ -1,81 +1,113 @@
+/*
+meta:{
+       requireAuth: bool,//是否需要登录
+       title:string,//标题
+       isShowList:bool,//是否在导航栏显示，默认显示
+    },
+*/
 
-import { nextTick } from 'vue'
-import {
-  createRouter,
-  createWebHashHistory,
-  RouteRecordRaw
-} from 'vue-router'
-import {rotuerName} from '../utils/routers/routers'
-
-
+import { nextTick } from "vue";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { rotuerName, requireAuth } from "../utils/routers/routers";
+import setting from "../setting/setting"
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/login',
-    name:'Login',
-    component: () => import('@/views/system/login/index.vue'),
-    meta:{
-       hidden: true,
-    }
+    path: "/login",
+    name: "Login",
+    component: () => import("@/views/system/login/index.vue"),
+    meta: {
+      requireAuth: false,
+      isShowList:false
+    },
   },
   {
-    path: '/register',
-    name:'Register',
-    component: () => import('@/views/system/register/index.vue'),
-    meta:{
-       hidden: true,
-    }
+    path: "/register",
+    name: "Register",
+    component: () => import("@/views/system/register/index.vue"),
+    meta: {
+      requireAuth: false,
+      isShowList:false
+    },
   },
   {
-    path: '/403',
-    name: '403',
-    component: () => import('@/views/system/error/403.vue'),
+    path: "/403",
+    name: "403",
+    component: () => import("@/views/system/error/403.vue"),
+    meta: {
+      requireAuth: false,
+      isShowList:false
+    },
   },
   {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/system/error/404.vue'),
-    meta:{
-       hidden: true,
-    }
+    path: "/404",
+    name: "404",
+    component: () => import("@/views/system/error/404.vue"),
+    meta: {
+      requireAuth: false,
+      isShowList:false
+    },
   },
   {
-    path: '/notFound',
-    name: 'NotFound',
-    component: () => import('@/views/system/error/notFound.vue'),
-    meta:{
-       hidden: true,
-    }
+    path: "/notFound",
+    name: "NotFound",
+    component: () => import("@/views/system/error/notFound.vue"),
+    meta: {
+      requireAuth: false,
+      isShowList:false
+    },
   },
-]
-
+  {
+    path: "/myStudy",
+    name: "MyStudy",
+    component: () => import("@/views/notepad/myStudy/index.vue"),
+    meta: {
+      requireAuth: true,
+    },
+    children: [
+      {
+        path: "/myStudy/settings",
+        name: "Settings",
+        component: () => import("@/views/notepad/myStudy/index.vue"),
+        meta: {
+          requireAuth: true,
+          title:'设置'
+        },
+      },
+    ],
+  }
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
+  routes,
+});
+// 路由列表名称
+let routesName=rotuerName(router.getRoutes());
+//路由是否需要登录列表
+let routeList= requireAuth(router.getRoutes());
 
-//router.addRoute前的路由列表
-const staticRouters=rotuerName(router.getRoutes())
-router.addRoute(
-  {
-    path: '/',
-    name: 'MyStudy',
-    component: () => import('@/views/notepad/myStudy/index.vue'),
-    children: [{ path: '/settings',name:'Settings', component: () => import('@/views/notepad/myStudy/index.vue')}],
-  },
-)
-router.replace(router.currentRoute.value.fullPath)
-//router.addRoute后的路由列表
-const dynamicRouters=rotuerName(router.getRoutes())
-
-router.beforeEach((to, from,next) => {
-  if(staticRouters.indexOf(to)!==-1){
-    next()
+//路由守卫
+router.beforeEach((to, from, next) => {
+  //是否该存在路由
+      console.log(11,routesName)
+  if(routesName.indexOf(to.name as String)===-1){
+    next({ name: 'NotFound' })
   }else{
-
+    //是否开启登录拦截
+    if(setting.isBeforeEach){
+      console.log(routeList.isRequireAuth)
+      if(routeList.notRequireAuth.indexOf(to.name as String)!==-1){
+        next({ name: 'Login' })
+      }else{
+        next()
+      }
+    next()
+    }
   }
-  // ...
-  // 返回 false 以取消导航
-  return false
 })
-export default router
+
+
+
+
+
+export default router;

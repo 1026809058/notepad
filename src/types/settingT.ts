@@ -1,5 +1,6 @@
 export interface ProjectConfig {
   showSideBar: Boolean;
+  isBeforeEach:Boolean;
   header:header;
   sideWindow:sideWindow
 }

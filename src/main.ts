@@ -10,8 +10,8 @@ import "./assets/iconfont/iconfont.css";
 import globa from "./components";
 
 const app = createApp(App);
+app.use(store);
 app.use(ElementPlus);
 app.use(router);
-app.use(store);
 globa(app);
 app.mount("#app");

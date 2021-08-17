@@ -1,5 +1,6 @@
 import Axios from 'axios'
 import { ElMessage } from 'element-plus'
+import router from '../../router/index';
 
 const baseURL = 'https://api.github.com'
 
