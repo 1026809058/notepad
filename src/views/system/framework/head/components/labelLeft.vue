@@ -1,35 +1,54 @@
 <template>
   <el-menu
-    default-active="2"
+    default-active="1"
     class="el-menu-vertical-demo"
+    router="true"
     @open="handleOpen"
     @close="handleClose"
   >
-    <el-submenu index="1">
+    <el-submenu
+      :index="item.path"
+      v-for="(item, index) in navigationArr"
+      :key="index"
+    >
       <template #title>
-        <i class="el-icon-location"></i>
-        <span>导航一</span>
+        <i :class="item.meta.icon"></i>
+        <span>{{ item.meta.title }}</span>
       </template>
-      <el-menu-item-group>
-        <template #title>分组一</template>
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="分组2">
-        <el-menu-item index="1-3">选项3</el-menu-item>
-      </el-menu-item-group>
-      <el-submenu index="1-4">
-        <template #title>选项4</template>
-        <el-menu-item index="1-4-1">选项1</el-menu-item>
+      <el-submenu
+        :index="childrenItem.path"
+        v-for="(childrenItem, index2) in item.children"
+        :key="index2"
+      >
+        <template #title>
+          <i :class="childrenItem.meta.icon"></i>
+          <span>{{ childrenItem.meta.title }}</span></template
+        >
+        <el-menu-item :index="childrenItem.path">
+          {{ childrenItem.meta.title }}
+        </el-menu-item>
       </el-submenu>
     </el-submenu>
   </el-menu>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 export default defineComponent({
   name: "LabelLeft",
   setup() {
+    const store = useStore();
+    const router = useRouter();
+    let isShowRoutes = store.state.router.requireAuth.isShowRoutes;
+    let navigationArr: Array<Object | null> = [];
+    console.log(isShowRoutes);
+    isShowRoutes.forEach((item: any) => {
+      if (item.children.length > 0) {
+        navigationArr.push(item);
+      }
+    });
+    console.log(navigationArr);
     //展开回调
     function handleOpen(key: String, keyPath: String[]) {
       console.log(111, key, keyPath);
@@ -39,6 +58,7 @@ export default defineComponent({
       console.log(222, key, keyPath);
     }
     return {
+      navigationArr,
       handleOpen,
       handleClose,
     };

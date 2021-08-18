@@ -8,15 +8,12 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { defineComponent } from "vue";
 import Footer from "../views/system/framework/footer/index.vue";
 import Head from "../views/system/framework/head/index.vue";
 import Bodys from "../views/system/framework/bodys/index.vue";
 import SideBar from "../views/system/framework/sideBar/index.vue";
 import setting from "../setting/setting";
-import { rotuerName, requireAuth } from "../utils/routers/routers";
 
 export default defineComponent({
   name: "",
@@ -27,18 +24,8 @@ export default defineComponent({
     Bodys,
   },
   setup() {
-    //vuex
-    const $store = useStore();
-    //路由
-    const $route = useRoute();
-    const $router = useRouter();
     //是否显示侧边栏
     const showSideBar = setting.showSideBar;
-    //获取路由列表的登录权限
-    const routesList = requireAuth($router.getRoutes());
-    //路由列表存入vuex
-    $store.commit("upIsRequireAuth", routesList);
-    console.log($store.state.router.requireAuth.isRequireAuth[0].path);
     return {
       showSideBar,
     };

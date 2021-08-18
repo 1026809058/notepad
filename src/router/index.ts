@@ -1,15 +1,20 @@
 /*
 meta:{
-       requireAuth: bool,//是否需要登录
+       requireAuth: bool,//是否需要登录,true
        title:string,//标题
-       isShowList:bool,//是否在导航栏显示，默认显示
+       isShowList:bool,//是否在导航栏显示，true
     },
 */
 
-import { nextTick } from "vue";
+// import { createApp } from "vue";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import { rotuerName, requireAuth } from "../utils/routers/routers";
+import store from "../store/index";
+import { requireAuth } from "../utils/routers/routers";
 import setting from "../setting/setting"
+
+
+
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
@@ -56,12 +61,17 @@ const routes: Array<RouteRecordRaw> = [
       isShowList:false
     },
   },
+
+
+
   {
     path: "/myStudy",
     name: "MyStudy",
     component: () => import("@/views/notepad/myStudy/index.vue"),
     meta: {
       requireAuth: true,
+      icon:'el-icon-location',
+      title:'学习'
     },
     children: [
       {
@@ -69,7 +79,28 @@ const routes: Array<RouteRecordRaw> = [
         name: "Settings",
         component: () => import("@/views/notepad/myStudy/index.vue"),
         meta: {
-          requireAuth: true,
+          icon:'el-icon-location',
+          title:'设置'
+        },
+      },
+    ],
+  },
+  {
+    path: "/myStudy2",
+    name: "MyStudy2",
+    component: () => import("@/views/notepad/myStudy/index.vue"),
+    meta: {
+      requireAuth: true,
+      icon:'el-icon-location',
+      title:'学习'
+    },
+    children: [
+      {
+        path: "/myStudy/settings1",
+        name: "Settings1",
+        component: () => import("@/views/notepad/myStudy/index.vue"),
+        meta: {
+          icon:'el-icon-location',
           title:'设置'
         },
       },
@@ -81,21 +112,19 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-// 路由列表名称
-let routesName=rotuerName(router.getRoutes());
 //路由是否需要登录列表
-let routeList= requireAuth(router.getRoutes());
+const routeList= requireAuth(router.getRoutes());
+store.commit('upIsRequireAuth', routeList)
+console.log(routeList);
 
 //路由守卫
 router.beforeEach((to, from, next) => {
   //是否该存在路由
-      console.log(11,routesName)
-  if(routesName.indexOf(to.name as String)===-1){
+  if(routeList.routesNameList.indexOf(to.name as String)===-1){
     next({ name: 'NotFound' })
   }else{
     //是否开启登录拦截
     if(setting.isBeforeEach){
-      console.log(routeList.isRequireAuth)
       if(routeList.notRequireAuth.indexOf(to.name as String)!==-1){
         next({ name: 'Login' })
       }else{
