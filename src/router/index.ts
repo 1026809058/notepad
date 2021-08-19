@@ -94,17 +94,6 @@ const routes: Array<RouteRecordRaw> = [
       icon:'el-icon-location',
       title:'学习'
     },
-    children: [
-      {
-        path: "/myStudy/settings1",
-        name: "Settings1",
-        component: () => import("@/views/notepad/myStudy/index.vue"),
-        meta: {
-          icon:'el-icon-location',
-          title:'设置'
-        },
-      },
-    ],
   }
 ];
 

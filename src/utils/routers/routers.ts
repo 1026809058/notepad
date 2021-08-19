@@ -55,3 +55,19 @@ export function requireAuth(routes: any): requireAuthT {
   });
   return { isRequireAuth, notRequireAuth, isShowRoutes,routesNameList };
 }
+
+/*
+@clearChildrenRouter
+return:[],返回path路径只有一级 / 的路由，去除没有子路由的路由列表
+*/
+export function clearChildrenRouter(arr:any){
+  const rule=/\//g
+  let lastArr:Array<object>=[]
+  arr.map((item:any)=>{
+    let match=item.path.match(rule)
+    if(match.length<=1){
+      lastArr.push(item)
+    }
+  })
+  return lastArr
+}
