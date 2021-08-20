@@ -1,16 +1,22 @@
 <template>
   <header :style="{ background: `${headbackground}` }">
-    <div class="logo">
+    <div class="menu-icon menu-icon_45" @click="openSideWin">
       <icon-font
-        :class="'icon-dynamic-filling'"
-        :size="2"
+        :class="{
+          'icon-toggle-left': sideBarIcon === false,
+          'icon-toggle-right': sideBarIcon === true,
+        }"
+        :size="1.8"
         :color="'#fff'"
       ></icon-font>
     </div>
-    <div class="menu-icon" @click="openSide">
+    <div class="menu-icon menu-icon_70" @click="openSide">
       <icon-font
-        :class="'icon-toggle-right'"
-        :size="2"
+        :class="{
+          'icon-toggle-left': sideBarIcon === false,
+          'icon-toggle-right': sideBarIcon === true,
+        }"
+        :size="1.8"
         :color="'#fff'"
       ></icon-font>
     </div>
@@ -34,6 +40,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref, watch } from "vue";
+import { useStore } from "vuex";
 import setting from "../../../../setting/setting";
 import { labelT } from "../../../../types/systemTs/headT";
 import LabelLeft from "./components/labelLeft.vue";
@@ -42,17 +49,22 @@ export default defineComponent({
   components: { LabelLeft, LabelRight },
   name: "Head",
   setup() {
+    //vuex
+    const store = useStore();
     //页面设置
     const headbackground = setting.header.background;
-
     let show = ref(false);
     let label: labelT = reactive({
       labelLeft: "菜单栏",
       labelRight: "标签栏",
     });
     let labelVal = ref(label.labelLeft);
-    function openSide() {
+    function openSideWin() {
       show.value = true;
+    }
+    //展开收起侧边栏
+    function openSide() {
+      store.commit("getSideBarType", !store.state.pageSetData.sideBarType);
     }
     watch(
       () => labelVal.value,
@@ -60,11 +72,23 @@ export default defineComponent({
         console.log(value);
       }
     );
+    let sideBarIcon = ref();
+    watch(
+      () => store.state.pageSetData.sideBarType,
+      (val) => {
+        sideBarIcon.value = val;
+      },
+      {
+        immediate: true,
+      }
+    );
     return {
       show,
       label,
       labelVal,
       headbackground,
+      sideBarIcon,
+      openSideWin,
       openSide,
     };
   },

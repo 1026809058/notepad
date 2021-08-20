@@ -11,7 +11,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import store from "../store/index";
 import { requireAuth } from "../utils/routers/routers";
 import setting from "../setting/setting"
-
+import Notepad from "../views/notepad/index.vue"
 
 
 
@@ -67,34 +67,36 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/myStudy",
     name: "MyStudy",
-    component: () => import("@/views/notepad/myStudy/index.vue"),
+    component: Notepad,
     meta: {
       requireAuth: true,
       icon:'el-icon-location',
-      title:'学习'
+      title:'学习dome'
     },
     children: [
       {
-        path: "/myStudy/settings",
-        name: "Settings",
-        component: () => import("@/views/notepad/myStudy/index.vue"),
+        path: "/myStudy/canvas",
+        name: "Canvas",
+        component: () => import("@/views/notepad/myStudy/canvas/index.vue"),
         meta: {
           icon:'el-icon-location',
-          title:'设置'
+          title:'Canvas'
         },
+        // children: [
+        //   {
+        //     path: "/myStudy/canvas/canvas_01",
+        //     name: "Canvas_01",
+        //     component: () => import("@/views/notepad/myStudy/canvas/canvas_01/canvas_01.vue"),
+        //     meta: {
+        //       icon:'el-icon-location',
+        //       title:'Canvas_01',
+        //       isShowList:false
+        //     },
+        //   },
+        // ],
       },
     ],
   },
-  {
-    path: "/myStudy2",
-    name: "MyStudy2",
-    component: () => import("@/views/notepad/myStudy/index.vue"),
-    meta: {
-      requireAuth: true,
-      icon:'el-icon-location',
-      title:'学习'
-    },
-  }
 ];
 
 const router = createRouter({

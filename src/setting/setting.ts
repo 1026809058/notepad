@@ -3,6 +3,8 @@ import { ProjectConfig } from "../types/settingT";
 const setting: ProjectConfig = {
   //是否显示SideBar侧边栏
   showSideBar: true,
+  //是否显示页脚
+  showFooter:false,
   //是否开启登录拦截
   isBeforeEach:true,
   header:{
@@ -10,6 +12,9 @@ const setting: ProjectConfig = {
   },
   sideWindow:{
     backgroundColor:'#fff'
+  },
+  sideBar:{
+    background:'rgb(236, 65, 65)'
   }
 };
 

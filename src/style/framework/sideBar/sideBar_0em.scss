@@ -1,0 +1,15 @@
+.side-bar-head {
+  height: 3rem;
+  width: 100%;
+
+  .logo {
+    width: 0;
+    height: 100%;
+    text-align: center;
+    line-height: 3rem;
+    margin-right: 0;
+    position: relative;
+    left: -3rem;
+    transition: all 0.5s;
+  }
+}

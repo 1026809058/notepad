@@ -1,16 +1,6 @@
 header {
   background-color: $background-color;
 }
-.logo {
-  width: 0;
-  height: 100%;
-  text-align: center;
-  line-height: 3rem;
-  margin-right: 0;
-  position: relative;
-  left: -3rem;
-  transition: all 0.5s;
-}
 .head-title {
   width: 50rem;
   height: 100%;
@@ -23,4 +13,10 @@ header {
 .functional-group {
   width: 47rem;
   height: 100%;
+}
+.menu-icon_45 {
+  display: block;
+}
+.menu-icon_70 {
+  display: none;
 }

@@ -5,22 +5,20 @@
  </el-menu>
 -->
 <template>
-  <div>
-    <template v-for="(item, index) in data" :key="index">
-      <el-submenu :index="item.path" v-if="item.children.length > 0">
-        <template #title>
-          <i :class="item.meta.icon"></i>
-          <span>{{ item.meta.title }}</span>
-        </template>
-        <menu-tree :data="item.children"></menu-tree>
-      </el-submenu>
-
-      <el-menu-item :index="item.path" :key="index" v-else>
+  <template v-for="(item, index) in data" :key="index">
+    <el-submenu :index="item.path" v-if="item.children.length > 0">
+      <template #title>
         <i :class="item.meta.icon"></i>
         <span>{{ item.meta.title }}</span>
-      </el-menu-item>
-    </template>
-  </div>
+      </template>
+      <menu-tree :data="item.children"></menu-tree>
+    </el-submenu>
+
+    <el-menu-item :index="item.path" :key="index" v-else>
+      <i :class="item.meta.icon"></i>
+      <span>{{ item.meta.title }}</span>
+    </el-menu-item>
+  </template>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -34,3 +32,8 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+:deep(.el-menu) {
+  border: none;
+}
+</style>
