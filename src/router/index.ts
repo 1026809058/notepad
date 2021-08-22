@@ -10,10 +10,8 @@ meta:{
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import store from "../store/index";
 import { requireAuth } from "../utils/routers/routers";
-import setting from "../setting/setting"
-import Notepad from "../views/notepad/index.vue"
-
-
+import setting from "../setting/setting";
+import Notepad from "../views/notepad/index.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/system/login/index.vue"),
     meta: {
       requireAuth: false,
-      isShowList:false
+      isShowList: false,
     },
   },
   {
@@ -31,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/system/register/index.vue"),
     meta: {
       requireAuth: false,
-      isShowList:false
+      isShowList: false,
     },
   },
   {
@@ -40,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/system/error/403.vue"),
     meta: {
       requireAuth: false,
-      isShowList:false
+      isShowList: false,
     },
   },
   {
@@ -49,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/system/error/404.vue"),
     meta: {
       requireAuth: false,
-      isShowList:false
+      isShowList: false,
     },
   },
   {
@@ -58,11 +56,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/system/error/notFound.vue"),
     meta: {
       requireAuth: false,
-      isShowList:false
+      isShowList: false,
     },
   },
-
-
 
   {
     path: "/myStudy",
@@ -70,30 +66,30 @@ const routes: Array<RouteRecordRaw> = [
     component: Notepad,
     meta: {
       requireAuth: true,
-      icon:'el-icon-location',
-      title:'学习dome'
+      icon: "el-icon-location",
+      title: "学习dome",
     },
     children: [
       {
         path: "/myStudy/canvas",
         name: "Canvas",
-        component: () => import("@/views/notepad/myStudy/canvas/index.vue"),
+        component: Notepad,
         meta: {
-          icon:'el-icon-location',
-          title:'Canvas'
+          icon: "el-icon-location",
+          title: "Canvas",
         },
-        // children: [
-        //   {
-        //     path: "/myStudy/canvas/canvas_01",
-        //     name: "Canvas_01",
-        //     component: () => import("@/views/notepad/myStudy/canvas/canvas_01/canvas_01.vue"),
-        //     meta: {
-        //       icon:'el-icon-location',
-        //       title:'Canvas_01',
-        //       isShowList:false
-        //     },
-        //   },
-        // ],
+        children: [
+          {
+            path: "/myStudy/canvas/canvas_01",
+            name: "Canvas_01",
+            component: () =>
+              import("@/views/notepad/myStudy/canvas/canvas_01/canvas_01.vue"),
+            meta: {
+              icon: "el-icon-location",
+              title: "Canvas_01",
+            },
+          },
+        ],
       },
     ],
   },
@@ -104,30 +100,26 @@ const router = createRouter({
   routes,
 });
 //路由是否需要登录列表
-const routeList= requireAuth(router.getRoutes());
-store.commit('upIsRequireAuth', routeList)
+const routeList = requireAuth(router.getRoutes());
+store.commit("upIsRequireAuth", routeList);
 console.log(routeList);
 
 //路由守卫
 router.beforeEach((to, from, next) => {
   //是否该存在路由
-  if(routeList.routesNameList.indexOf(to.name as String)===-1){
-    next({ name: 'NotFound' })
-  }else{
+  if (routeList.routesNameList.indexOf(to.name as String) === -1) {
+    next({ name: "NotFound" });
+  } else {
     //是否开启登录拦截
-    if(setting.isBeforeEach){
-      if(routeList.notRequireAuth.indexOf(to.name as String)!==-1){
-        next({ name: 'Login' })
-      }else{
-        next()
+    if (setting.isBeforeEach) {
+      if (routeList.notRequireAuth.indexOf(to.name as String) !== -1) {
+        next({ name: "Login" });
+      } else {
+        next();
       }
-    next()
+      next();
     }
   }
-})
-
-
-
-
+});
 
 export default router;
