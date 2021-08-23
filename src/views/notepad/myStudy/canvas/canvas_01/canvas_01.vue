@@ -5,15 +5,16 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, ref, nextTick } from "vue";
-import formatDate from "../../../../../utils/formateDate";
 export default defineComponent({
   name: "Canvas_01",
   setup() {
     let canvas = ref();
     onMounted(() => {
       console.log(canvas, 222);
+      let ctx = canvas.value.getContext("2d");
       function time() {
-        let ctx = canvas.value.getContext("2d");
+        ctx.save(); //保存状态
+        ctx.clearRect(0, 0, 600, 600); //清空矩形
         ctx.translate(300, 300); // 设置中心点，此时以（300,300）为（0,0）坐标
         ctx.save(); //保存状态
         /*大圆*/
@@ -34,7 +35,9 @@ export default defineComponent({
 
         /*时针*/
         ctx.rotate(
-          (2 * Math.PI) / 12 + ((2 * Math.PI) / 12) * (min / 60) - Math.PI / 2
+          ((2 * Math.PI) / 12) * hour +
+            ((2 * Math.PI) / 12) * (min / 60) -
+            Math.PI / 2
         ); //旋转当前图案
         ctx.beginPath();
         ctx.moveTo(-10, 0); //movTo设置画布起点
@@ -46,18 +49,55 @@ export default defineComponent({
         ctx.rotate(
           ((2 * Math.PI) / 60) * min +
             ((2 * Math.PI) / 60) * (sec / 60) -
-            Math.PI
+            Math.PI / 2
         );
         ctx.beginPath();
         ctx.moveTo(-10, 0);
+        ctx.lineTo(60, 0);
         ctx.lineWidth = 5;
-        ctx.strokeStyle = "blue"; //绘制颜色
+        ctx.strokeStyle = "blue"; //颜色
         ctx.stroke();
         ctx.closePath();
-        ctx.restore(); //回复状态
+        ctx.restore(); //恢复状态
         ctx.save();
+        /*秒针*/
+        ctx.rotate(((2 * Math.PI) / 60) * sec - Math.PI);
+        ctx.beginPath();
+        ctx.moveTo(-10, 0);
+        ctx.lineTo(80, 0);
+        ctx.strokeStyle = "red";
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+        ctx.save();
+        /*刻度*/
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 60; i++) {
+          ctx.rotate((2 * Math.PI) / 60);
+          ctx.beginPath();
+          ctx.moveTo(90, 0);
+          ctx.lineTo(100, 0);
+          ctx.stroke();
+          ctx.closePath();
+        }
+        ctx.restore();
+        ctx.save();
+        ctx.lineWidth = 5;
+        for (let i = 0; i < 12; i++) {
+          ctx.rotate((2 * Math.PI) / 12);
+          ctx.beginPath();
+          ctx.moveTo(85, 0);
+          ctx.lineTo(100, 0);
+          ctx.stroke();
+          ctx.closePath();
+        }
+
+        ctx.restore();
+        ctx.restore();
       }
-      time();
+      setInterval(() => {
+        time();
+      }, 1000);
     });
     return {
       canvas,
