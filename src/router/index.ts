@@ -66,7 +66,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Notepad,
     meta: {
       requireAuth: true,
-      icon: "el-icon-location",
+      icon: "el-icon-s-management",
       title: "学习dome",
     },
     children: [
@@ -75,7 +75,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "Canvas",
         component: Notepad,
         meta: {
-          icon: "el-icon-location",
+          icon: "el-icon-s-open",
           title: "Canvas",
         },
         children: [
@@ -85,8 +85,16 @@ const routes: Array<RouteRecordRaw> = [
             component: () =>
               import("@/views/notepad/myStudy/canvas/canvas_01/canvas_01.vue"),
             meta: {
-              icon: "el-icon-location",
               title: "Canvas_01",
+            },
+          },
+          {
+            path: "/myStudy/canvas/canvas_02",
+            name: "Canvas_02",
+            component: () =>
+              import("@/views/notepad/myStudy/canvas/canvas_02/canvas_02.vue"),
+            meta: {
+              title: "Canvas_02",
             },
           },
         ],
