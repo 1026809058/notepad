@@ -12,7 +12,7 @@
     </div>
     <div class="flex-right">
       <header class="header"><Head /></header>
-      <main class="main"><Bodys /></main>
+      <main class="main" :class="{ 'main-height': showFooter }"><Bodys /></main>
       <footer class="footer" v-if="showFooter"></footer>
     </div>
   </div>
@@ -76,12 +76,18 @@ export default defineComponent({
   min-width: 20rem;
 }
 .flex-right {
+  $footer-height: 4rem;
   flex: 1;
   min-width: calc(100% - 20rem);
   max-width: 100%;
-  max-height: calc(100% - 4rem);
+  max-height: 100%;
+  .main-height {
+    height: calc(100% - 7rem);
+  }
+  .footer {
+    height: $footer-height;
+  }
 }
-
 .side-bar-with1 {
   min-width: 20rem;
 }

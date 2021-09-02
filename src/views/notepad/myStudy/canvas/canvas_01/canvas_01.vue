@@ -1,21 +1,33 @@
 <template>
-  <div class="canvas-01" id="canvas1">
-    <canvas ref="canvas" width="600" height="600"></canvas>
+  <div class="canvas-01" ref="canvas1">
+    <canvas ref="canvas"></canvas>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref, nextTick } from "vue";
+import {
+  defineComponent,
+  onMounted,
+  ref,
+  nextTick,
+  onBeforeUnmount,
+} from "vue";
 export default defineComponent({
   name: "Canvas_01",
   setup() {
     let canvas = ref();
+    let canvas1 = ref();
+    let frame: any;
     onMounted(() => {
-      console.log(canvas, 222);
+      let wHeight = canvas1.value.offsetHeight;
+      let wWidth = canvas1.value.offsetWidth;
+      canvas.value.width = wWidth;
+      canvas.value.height = wHeight;
+
       let ctx = canvas.value.getContext("2d");
       function time() {
         ctx.save(); //保存状态
-        ctx.clearRect(0, 0, 600, 600); //清空矩形
-        ctx.translate(300, 300); // 设置中心点，此时以（300,300）为（0,0）坐标
+        ctx.clearRect(0, 0, wWidth, wHeight); //清空矩形
+        ctx.translate(wWidth / 2, wHeight / 2); // 设置中心点，此时以（300,300）为（0,0）坐标
         ctx.save(); //保存状态
         /*大圆*/
         ctx.beginPath(); //开始路径
@@ -94,20 +106,24 @@ export default defineComponent({
 
         ctx.restore();
         ctx.restore();
+
+        frame = requestAnimationFrame(time);
       }
-      setInterval(() => {
-        time();
-      }, 1000);
+      frame = requestAnimationFrame(time);
+    });
+    onBeforeUnmount(() => {
+      window.cancelAnimationFrame(frame); //终止requestAnimationFrame
     });
     return {
       canvas,
+      canvas1,
     };
   },
 });
 </script>
 <style lang="scss" scoped>
 .canvas-01 {
-  margin: 0;
+  margin: auto;
   padding: 0;
   width: 100%;
   height: 100%;
