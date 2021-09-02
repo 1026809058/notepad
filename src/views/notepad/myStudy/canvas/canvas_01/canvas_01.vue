@@ -10,6 +10,7 @@ import {
   ref,
   nextTick,
   onBeforeUnmount,
+  watch,
 } from "vue";
 export default defineComponent({
   name: "Canvas_01",
@@ -18,13 +19,12 @@ export default defineComponent({
     let canvas1 = ref();
     let frame: any;
     onMounted(() => {
-      let wHeight = canvas1.value.offsetHeight;
-      let wWidth = canvas1.value.offsetWidth;
-      canvas.value.width = wWidth;
-      canvas.value.height = wHeight;
-
       let ctx = canvas.value.getContext("2d");
       function time() {
+        let wHeight = canvas1.value.offsetHeight;
+        let wWidth = canvas1.value.offsetWidth;
+        canvas.value.width = wWidth;
+        canvas.value.height = wHeight;
         ctx.save(); //保存状态
         ctx.clearRect(0, 0, wWidth, wHeight); //清空矩形
         ctx.translate(wWidth / 2, wHeight / 2); // 设置中心点，此时以（300,300）为（0,0）坐标
