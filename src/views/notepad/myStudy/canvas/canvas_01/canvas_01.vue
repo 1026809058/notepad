@@ -52,7 +52,7 @@ export default defineComponent({
             Math.PI / 2
         ); //旋转当前图案
         ctx.beginPath();
-        ctx.moveTo(-10, 0); //movTo设置画布起点
+        ctx.moveTo(-10.5, 0.5); //movTo设置画布起点
         ctx.lineTo(40, 0); //lineTo设置画布经过点
         ctx.lineWidth = 10; //设置线宽
         ctx.stroke();
@@ -64,7 +64,7 @@ export default defineComponent({
             Math.PI / 2
         );
         ctx.beginPath();
-        ctx.moveTo(-10, 0);
+        ctx.moveTo(-10.5, 0.5);
         ctx.lineTo(60, 0);
         ctx.lineWidth = 5;
         ctx.strokeStyle = "blue"; //颜色
@@ -75,7 +75,7 @@ export default defineComponent({
         /*秒针*/
         ctx.rotate(((2 * Math.PI) / 60) * sec - Math.PI);
         ctx.beginPath();
-        ctx.moveTo(-10, 0);
+        ctx.moveTo(-10.5, 0.5);
         ctx.lineTo(80, 0);
         ctx.strokeStyle = "red";
         ctx.stroke();
@@ -87,7 +87,7 @@ export default defineComponent({
         for (let i = 0; i < 60; i++) {
           ctx.rotate((2 * Math.PI) / 60);
           ctx.beginPath();
-          ctx.moveTo(90, 0);
+          ctx.moveTo(90.5, 0.5);
           ctx.lineTo(100, 0);
           ctx.stroke();
           ctx.closePath();
@@ -98,7 +98,7 @@ export default defineComponent({
         for (let i = 0; i < 12; i++) {
           ctx.rotate((2 * Math.PI) / 12);
           ctx.beginPath();
-          ctx.moveTo(85, 0);
+          ctx.moveTo(85.5, 0.5);
           ctx.lineTo(100, 0);
           ctx.stroke();
           ctx.closePath();
